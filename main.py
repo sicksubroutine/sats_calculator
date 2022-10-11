@@ -13,6 +13,7 @@ def main():
   global exit, price
   sats = 0.00000001
   full_btc = 100000000
+  
   btc_price_get()
   print("\33[34m=== Convert between sats and USD! ===\33[0m")
   print("Current BTC Price on Kraken: \33[32m$"+ str(price) + "\33[0m")
@@ -33,9 +34,14 @@ def main():
     print("\33[31m$" + str(answer2) + " worth of sats\33[0m/BTC.")
     return main()
   elif choice == "3":
-    print("I'm sorry you feel that way! Terminating interface. ")
-    print("...")
+    con = 0
+    print("Command acknowledged. Terminating interface. ")
     time.sleep(1)
+    while exit == False and con < 15:
+      print(".")
+      time.sleep(0.05)
+      con += 1
+    time.sleep(0.25)
     exit = True
     return
   else:
