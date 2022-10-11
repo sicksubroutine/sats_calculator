@@ -2,17 +2,21 @@ import requests
 import time
 
 exit = False
-def init():
+def btc_price_get():
   global price
   key = "https://api.kraken.com/0/public/Ticker?pair=xbtusd"
   r = requests.get(key)
   data = r.json()["result"]["XXBTZUSD"]["c"]
   price = round(float(data[0]))
+  return price
 def main():
   global exit, price
   sats = 0.00000001
   full_btc = 100000000
-  choice = input("\33[34m=== What would you like to do? ===\33[0m \n1. Input USD to get amount of sats. \n2. Input Sats to get an amount of USD. \n3. Exit\n> ")
+  btc_price_get()
+  print("\33[34m=== Convert between sats and USD! ===\33[0m")
+  print("Current BTC Price on Kraken: \33[32m$"+ str(price) + "\33[0m")
+  choice = input("\33[35m=== What would you like to do? ===\33[0m \n1. Input USD to get amount of sats. \n2. Input Sats to get an amount of USD. \n3. Exit\n> ")
   if choice == "1":
     print("How much USD would you like to input?")
     USD = float(input("$"))
@@ -29,6 +33,9 @@ def main():
     print("\33[31m$" + str(answer2) + " worth of sats\33[0m/BTC.")
     return main()
   elif choice == "3":
+    print("I'm sorry you feel that way! Terminating interface. ")
+    print("...")
+    time.sleep(1)
     exit = True
     return
   else:
@@ -36,5 +43,4 @@ def main():
     time.sleep(1)
     return main()
 while exit == False:
-  init()
   main()

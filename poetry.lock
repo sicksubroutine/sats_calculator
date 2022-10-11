@@ -331,6 +331,24 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "qrcode"
+version = "7.3.1"
+description = "QR Code image generator"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+all = ["zest.releaser", "tox", "pytest", "pytest", "pytest-cov", "pillow"]
+dev = ["tox", "pytest"]
+maintainer = ["zest.releaser"]
+pil = ["pillow"]
+test = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "replit"
 version = "3.2.4"
 description = "A library for interacting with features of repl.it"
@@ -521,7 +539,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "1b4bb8a532763d1e14efe85e36d3413e4dfca16b7c3712bce19b3ba46a13acee"
+content-hash = "ed33a2abc9cf82b879bf533dac768bf303941c969ff30d71aad27ec9e20e2b71"
 
 [metadata.files]
 aiohttp = []
@@ -553,6 +571,7 @@ python-dateutil = []
 python-lsp-jsonrpc = []
 pytoolconfig = []
 pytz = []
+qrcode = []
 replit = []
 replit-python-lsp-server = []
 requests = []
