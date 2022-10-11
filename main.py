@@ -1,47 +1,31 @@
 import requests
-import json
 import time
 
 exit = False
 def init():
-  global exit, data, price, sats
-  exit = False
+  global price
   key = "https://api.kraken.com/0/public/Ticker?pair=xbtusd"
   r = requests.get(key)
-  data = r.json()
   data = r.json()["result"]["XXBTZUSD"]["c"]
-  data = data[0]
-  price = float(data)
-  price = int(round(price))
-  sats = 0.00000001
+  price = round(float(data[0]))
 def main():
-  global exit, data, sats, price
+  global exit, price
+  sats = 0.00000001
   full_btc = 100000000
-  choice = input("What would you like to do?\n1. Input USD to get amount of sats. \n2. Input Sats to get an amount of USD. \n3. Exit\n")
+  choice = input("\33[34m=== What would you like to do? ===\33[0m \n1. Input USD to get amount of sats. \n2. Input Sats to get an amount of USD. \n3. Exit\n> ")
   if choice == "1":
     print("How much USD would you like to input?")
-    USD = input("$")
-    USD = float(USD)
-    price = float(price)
-    amount_btc = USD / price
-    amount_btc = amount_btc / sats
-    USD = int(USD)
+    USD = float(input("$"))
+    amount_btc = (USD / price) / sats
     print("$" + str(USD) + " equals " + "\33[31m"+str(round(amount_btc)) + " sats\33[0m!")
-    if amount_btc > 10000:
-      a = amount_btc / full_btc
-      a = float(a)
-      a = round(a, 8)
-      print("Or \33[32m" + str(a) + "\33[0m in full BTC terms!")
+    a = float(round(amount_btc / full_btc, 8))
+    print("Or \33[32m" + str('{:.8f}'.format(a)) + "\33[0m in full BTC terms!")
   elif choice == "2":
-    what_amount = input("How many sats? ")
-    what_amount = int(what_amount)
+    what_amount = int(input("How many sats? "))
     answer = what_amount * sats
-    answer2 = answer * price
-    answer2 = answer2 + 0.006
-    answer2 = round(answer2, 2)
+    answer2 = round(answer * price + 0.006, 2)
     print(str(what_amount) + " sats")
-    print(str(round(answer,8)) + " BTC")
-    
+    print(str("\33[32m" + '{:.8f}'.format(answer)) + " BTC\33[0m")
     print("\33[31m$" + str(answer2) + " worth of sats\33[0m/BTC.")
     return main()
   elif choice == "3":
