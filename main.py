@@ -1,6 +1,5 @@
 import requests
 import time
-
 exit = False
 def btc_price_get():
   global price
@@ -13,7 +12,6 @@ def main():
   global exit, price
   sats = 0.00000001
   full_btc = 100000000
-  
   btc_price_get()
   print("\33[34m=== Convert between sats and USD! ===\33[0m")
   print("Current BTC Price on Kraken: \33[32m$"+ str(price) + "\33[0m")
@@ -28,7 +26,7 @@ def main():
   elif choice == "2":
     what_amount = int(input("How many sats? "))
     answer = what_amount * sats
-    answer2 = round(answer * price + 0.006, 2)
+    answer2 = round(answer * price, 4)
     print(str(what_amount) + " sats")
     print(str("\33[32m" + '{:.8f}'.format(answer)) + " BTC\33[0m")
     print("\33[31m$" + str(answer2) + " worth of sats\33[0m/BTC.")
